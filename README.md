@@ -21,10 +21,16 @@ Zheying Zhang
 Timo Poranen
 
 **Developers:**
+
 Abrar Morshed (Project Manager)
+
 Sayem Rahman (Product Owner)
+
 Md Ozayer Islam (Senior Developer)
+
 Md Nasir Uddin Shuvo (Senior Developer)
+
 August Halonen (Junior Developer)
+
 Oskari Alaranta (Junior Developer)
 
