@@ -1,4 +1,4 @@
-# PDF Summarizer with GPT-Neo
+# Uploading a file and creating a summary with GPT-Neo
 
 This is a web-based application for summarizing PDF files using GPT-Neo.
 
