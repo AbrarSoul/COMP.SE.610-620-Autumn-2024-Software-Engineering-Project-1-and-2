@@ -1,45 +1,35 @@
-# COMP.SE.610-620-Autumn-2024-Software-Engineering-Project-1-and-2
-**Project Title:**
+# PDF Summarizer with GPT-Neo
 
-APUOPE-RE: An LLM-Powered online Teaching Assistant for the Requirements Engineering (RE) course
+This is a web-based application for summarizing PDF files using GPT-Neo.
 
-**Overview:**
+## Features:
+- Upload a PDF document.
+- Extract text from the PDF.
+- Summarize the text using a cloud-based GPT-Neo.
 
-The APUOPE-RE project aims to develop a novel AI-driven teaching assistant designed specifically for enhancing the learning experience in the Requirements Engineering course. Leveraging the capability of Large Language Models (LLMs), APUOPE-RE will serve as an interactive agent that provides students with dynamic, context-sensitive support throughout the course. The assistant can provide relevant, real-life examples and explanations directly linked to the textbook and lecture notes, offer quizzes to assess student comprehension, and potentially deliver additional services to support the learning process.
+## Setup and Installation:
 
-**Objectives:**
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/AbrarSoul/COMP.SE.610-620-Autumn-2024-Software-Engineering-Project-1-and-2.git
+    cd COMP.SE.610-620-Autumn-2024-Software-Engineering-Project-1-and-2
+    ```
 
-The primary objective of this project is to design and implement a reliable and interactive teaching assistant application that can
+2. Install the dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
- Analyze the content of each lecture and the corresponding textbook chapters to generate tailored examples and detailed explanations to clarify the concepts. This will help students better understand the materials by relating theoretical knowledge to practical applications.
+3. Run the application:
+    ```bash
+    python app.py
+    ```
 
- Create Quizzes that assess students' grasp of the key points and knowledge covered in each lecture. Based on student's performance in previous quizzes, the assistant can offer more challenging questions or providing additional support as needed.
+4. Open your browser and visit `http://localhost:5000/` to use the app.
 
- Offer additional learning supports.
+## Folder Structure:
 
-**Challenges:**
-
-One challenge in this project is how to ensure that the generated content, such as examples and quizzes, is both relevant and precise, while also being free from bias. Addressing this challenge will be critical to the reliability of the APUOPE-RE application.
-
-**Customer:**
-
-Zheying Zhang
-
-**Coach:**
-
-Timo Poranen
-
-**Developers:**
-
-Abrar Morshed (Project Manager)
-
-Sayem Rahman (Product Owner)
-
-Md Ozayer Islam (Senior Developer)
-
-Md Nasir Uddin Shuvo (Senior Developer)
-
-August Halonen (Junior Developer)
-
-Oskari Alaranta (Junior Developer)
-
+- `app.py`: Backend Flask application.
+- `templates/`: Contains HTML templates.
+- `static/`: Static assets - CSS and JavaScript files.
+- `requirements.txt`: Lists the Python dependencies.

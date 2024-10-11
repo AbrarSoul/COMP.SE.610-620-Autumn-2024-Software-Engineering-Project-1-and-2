@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Summarizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h2>Upload PDF for Summarization</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfInput" accept="application/pdf" required>
+        <button type="submit">Submit</button>
+    </form>
+    <h3>Summary:</h3>
+    <div id="summary"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
