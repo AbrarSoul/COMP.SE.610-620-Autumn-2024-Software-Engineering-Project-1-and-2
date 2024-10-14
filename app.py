@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Hugging Face GPT-Neo API settings
 HF_API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-2.7B"
-HF_API_KEY = "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"  # Replace with your Hugging Face API key
+HF_API_KEY = "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" 
 
 headers = {
     "Authorization": f"Bearer {HF_API_KEY}",
