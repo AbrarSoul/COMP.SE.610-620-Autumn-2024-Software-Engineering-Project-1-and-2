@@ -1,0 +1,16 @@
+:root {
+  --label-medium-font-family: "Work Sans", Helvetica;
+  --label-medium-font-size: 14px;
+  --label-medium-font-style: normal;
+  --label-medium-font-weight: 500;
+  --label-medium-letter-spacing: 0.4000000059604645px;
+  --label-medium-line-height: 20px;
+  --label-small-font-family: "Work Sans", Helvetica;
+  --label-small-font-size: 12px;
+  --label-small-font-style: normal;
+  --label-small-font-weight: 500;
+  --label-small-letter-spacing: 0.6000000238418579px;
+  --label-small-line-height: 16px;
+  --primary: rgba(58, 0, 229, 1);
+  --primary-subtle: rgba(247, 245, 255, 1);
+}

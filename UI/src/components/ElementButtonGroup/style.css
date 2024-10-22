@@ -1,0 +1,86 @@
+.element-button-group {
+  align-items: center;
+  border: 1.5px solid;
+  border-color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+
+.element-button-group .text-small {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.element-button-group .div {
+  color: var(--primary);
+  flex: 1;
+  font-family: var(--label-small-font-family);
+  font-size: var(--label-small-font-size);
+  font-style: var(--label-small-font-style);
+  font-weight: var(--label-small-font-weight);
+  letter-spacing: var(--label-small-letter-spacing);
+  line-height: var(--label-small-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+}
+
+.element-button-group.large {
+  padding: 12px 24px;
+  width: 88px;
+}
+
+.element-button-group.position-right {
+  overflow: hidden;
+}
+
+.element-button-group.small {
+  padding: 8px 16px;
+  width: 67px;
+}
+
+.element-button-group.state-true {
+  background-color: var(--primary-subtle);
+}
+
+.element-button-group.medium {
+  padding: 10px 20px;
+  width: 80px;
+}
+
+.element-button-group.position-left {
+  overflow: hidden;
+}
+
+.element-button-group.position-left.large {
+  border-radius: 12px 0px 0px 12px;
+}
+
+.element-button-group.position-right.large {
+  border-radius: 0px 12px 12px 0px;
+}
+
+.element-button-group.small.position-right {
+  border-radius: 0px 8px 8px 0px;
+}
+
+.element-button-group.small.position-left {
+  border-radius: 8px 0px 0px 8px;
+}
+
+.element-button-group.position-left.medium {
+  border-radius: 10px 0px 0px 10px;
+}
+
+.element-button-group.position-right.medium {
+  border-radius: 0px 10px 10px 0px;
+}

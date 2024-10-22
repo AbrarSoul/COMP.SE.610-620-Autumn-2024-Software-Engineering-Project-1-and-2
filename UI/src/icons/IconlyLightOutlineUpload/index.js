@@ -1,0 +1,1 @@
+export { IconlyLightOutlineUpload } from "./IconlyLightOutlineUpload";

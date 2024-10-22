@@ -1,0 +1,1 @@
+export { IconlyLightOutline } from "./IconlyLightOutline";

@@ -1,0 +1,119 @@
+.text-medium {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.text-medium .label {
+  color: var(--primary);
+  flex: 1;
+  font-family: var(--label-medium-font-family);
+  font-size: var(--label-medium-font-size);
+  font-style: var(--label-medium-font-style);
+  font-weight: var(--label-medium-font-weight);
+  letter-spacing: var(--label-medium-letter-spacing);
+  line-height: var(--label-medium-line-height);
+  margin-top: -1.00px;
+  position: relative;
+}
+
+.text-medium .iconly-light-outline-wrapper {
+  height: 20px;
+  position: relative;
+  width: 20px;
+}
+
+.text-medium .image-wrapper {
+  height: 20px;
+}
+
+.text-medium .image {
+  background-image: url(https://c.animaapp.com/v9zriqdu/img/group-3-2@2x.png);
+  background-size: 100% 100%;
+  height: 17px;
+  left: 2px;
+  position: relative;
+  top: 2px;
+  width: 17px;
+}
+
+.text-medium .overlap-group {
+  height: 9px;
+  left: 2px;
+  position: relative;
+  top: 4px;
+  width: 12px;
+}
+
+.text-medium .fill {
+  height: 5px;
+  left: 0;
+  position: absolute;
+  top: 4px;
+  width: 12px;
+}
+
+.text-medium .img {
+  height: 4px;
+  left: 1px;
+  position: absolute;
+  top: 0;
+  width: 4px;
+}
+
+.text-medium .text {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+
+.text-medium .text-wrapper {
+  color: var(--primary);
+  flex: 1;
+  font-family: var(--label-medium-font-family);
+  font-size: var(--label-medium-font-size);
+  font-style: var(--label-medium-font-style);
+  font-weight: var(--label-medium-font-weight);
+  letter-spacing: var(--label-medium-letter-spacing);
+  line-height: var(--label-medium-line-height);
+  margin-top: -1.00px;
+  position: relative;
+}
+
+.text-medium.left {
+  gap: 6px;
+  width: 66px;
+}
+
+.text-medium.middle {
+  flex-direction: column;
+  gap: 6px;
+  width: 44px;
+}
+
+.text-medium.none {
+  gap: 10px;
+  width: 40px;
+}
+
+.text-medium.left .text {
+  flex: 1;
+  flex-grow: 1;
+}
+
+.text-medium.middle .text {
+  align-self: stretch;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.text-medium.none .text {
+  flex: 1;
+}
+
+.text-medium.middle .text-wrapper {
+  text-align: center;
+}
