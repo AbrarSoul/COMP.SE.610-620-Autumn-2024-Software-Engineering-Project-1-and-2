@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f4f4;
+    margin: 0;
+    flex-direction: column;
+}
+
+.chat-container {
+    width: 600px;
+    max-width: 90%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.chat-box {
+    position: relative;
+    padding: 20px;
+    height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column-reverse;
+
+    /* Hide scrollbar for Chrome, Safari, and Opera */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+.chat-box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
+/* Style for each message */
+.chat-box .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%; /* Limit message width for readability */
+}
+
+/* User message styling */
+.user-message {
+    text-align: right;
+    color: rgb(0, 0, 0);
+    background-color: #e2e4e6;
+    align-self: flex-end;
+}
+
+/* Bot message styling */
+.bot-message {
+    text-align: left;
+    color: rgb(1, 0, 0);
+    background-color: #b8d8fa;
+    align-self: flex-start;
+}
+
+/* Sample questions styling */
+.sample-questions {
+    position: absolute;
+    top: 20px;
+    text-align: left;
+    color: #666;
+    font-style: italic;
+    width: 90%;
+}
+.sample-questions p {
+    background-color: #dedede;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0;
+    margin-bottom: 10px;
+    color: black;
+}
+.sample-questions p:hover {
+    color: #007bff;
+}
+
+/* Input box styling */
+.input-box {
+    padding: 10px;
+    display: flex;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.input-box button {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.input-box button:hover {
+    background: #0056b3;
+}
+
+/* upload pdf */
+.pdf-upload {
+    width: 600px;
+    max-width: 90%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pdf-upload input[type="file"] {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .pdf-upload button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pdf-upload button:hover {
+    background-color: #45a049;
+  }
+  
+  #uploadMessage {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
