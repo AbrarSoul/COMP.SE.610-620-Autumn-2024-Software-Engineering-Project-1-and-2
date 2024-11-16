@@ -1,0 +1,66 @@
+/* General Header Styling */
+.dashboard-header, .lecture-header {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.subheader {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Notice Styling */
+.important-notices {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 6px solid #4CAF50;
+    margin-top: 10px;
+}
+
+.notice-item {
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Progress Bar Styling */
+.progress-bar {
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Lecture Summaries Table */
+.lecture-table {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.lecture-row {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.lecture-row:hover {
+    background-color: #f9f9f9;
+}
+
+.upload-success {
+    color: #4CAF50;
+    font-weight: bold;
+    margin-top: 10px;
+}
