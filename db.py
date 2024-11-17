@@ -6,14 +6,30 @@ DB_PATH = 'lecture_summaries.db'
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS lectures (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        title TEXT,
-                        upload_date TEXT,
-                        file_path TEXT
-                    )''')
+
+    # Create table for lecture summaries
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS lectures (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            upload_date TEXT,
+            file_path TEXT
+        )
+    ''')
+
+    # Create table for user authentication
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            role TEXT NOT NULL CHECK (role IN ('student', 'teacher'))
+        )
+    ''')
+
     conn.commit()
     conn.close()
+    print("Database initialized successfully!")
 
 def save_to_db(title, file_path):
     conn = sqlite3.connect(DB_PATH)
@@ -38,5 +54,36 @@ def delete_from_db(lecture_id):
     conn.commit()
     conn.close()
 
+# Register a new user
+def register_user(email, password, role):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO users (email, password, role) VALUES (?, ?, ?)", (email, password, role))
+        conn.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+    finally:
+        conn.close()
 
+# Authenticate a user
+def authenticate_user(email, password):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, role FROM users WHERE email = ? AND password = ?", (email, password))
+    user = cursor.fetchone()
+    conn.close()
+    if user:
+        return {"id": user[0], "role": user[1]}
+    return None
+
+# Get user role by user ID
+def get_user_role(user_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT role FROM users WHERE id = ?", (user_id,))
+    role = cursor.fetchone()
+    conn.close()
+    return role[0] if role else None
 
