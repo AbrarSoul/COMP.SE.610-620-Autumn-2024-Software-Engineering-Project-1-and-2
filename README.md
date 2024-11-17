@@ -74,3 +74,11 @@ Fix:
 Open the script in VS Code.
 Click the CRLF button at the bottom right corner.
 Select LF and save the file.
+
+## Running Test Cases
+
+To run the test cases, use the following command:
+
+```bash
+pytest tests/
+```
