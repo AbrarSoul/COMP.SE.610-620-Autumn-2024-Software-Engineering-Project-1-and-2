@@ -40,3 +40,37 @@ The AI-Driven Teaching Assistant (TA) is designed to enhance learning in Require
 - **Analytics Dashboard for Educators**: Provide teachers with analytics on student engagement, performance, and areas where students need additional support.
 - **Scalability and Reliability**: Ensure the system can handle varying loads with robust error handling, ensuring a reliable experience for all students.
 
+## How to Run the Project
+
+1. **Clone the Repository**:
+    ```bash
+    git clone -b user_authentication_authorization_ozayer https://github.com/AbrarSoul/COMP.SE.610-620-Autumn-2024-Software-Engineering-Project-1-and-2.git
+    cd <project-directory>
+    ```
+2. **Ensure Permissions**: If the run.sh script does not have execution permissions, grant them:
+    ```bash
+    chmod +x run.sh
+    ```
+3. **Run the Setup and Application**: Execute the script to set up and run the project:
+    ```bash
+    ./run.sh
+    ```
+
+## What the Script Does
+
+1. **Checks for a Virtual Environment**: Creates a new venv directory if it doesn't exist.
+2. **Activates the Virtual Environment**: Ensures all commands run in an isolated Python environment.
+3. **Installs Dependencies**: Installs all required Python libraries listed in requirements.txt.
+4. **Initializes the Database**: Sets up the SQLite database and ensures required tables are created.
+5. **Runs the Application**: Launches the Streamlit app.
+
+## Debugging Tips
+If you encounter:
+    ```bash
+    ./run.sh: bad interpreter: /bin/bash^M: no such file or directory
+    ```
+Reason: Line endings are in Windows format (CRLF) instead of Unix (LF).
+Fix:
+Open the script in VS Code.
+Click the CRLF button at the bottom right corner.
+Select LF and save the file.
