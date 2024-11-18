@@ -17,8 +17,8 @@ pip install -r requirements.txt
 
 # Initialize the database
 echo "Initializing the database..."
-python3 -c "import db; db.init_db()"
+python -c "import db; db.init_db()"
 
 # Run the Streamlit app
 echo "Starting the Streamlit app..."
-streamlit run app.py
+python streamlit run app.py
