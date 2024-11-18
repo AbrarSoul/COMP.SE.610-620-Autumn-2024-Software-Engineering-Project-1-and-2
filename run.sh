@@ -21,4 +21,4 @@ python -c "import db; db.init_db()"
 
 # Run the Streamlit app
 echo "Starting the Streamlit app..."
-python streamlit run app.py
+python -m streamlit run app.py
