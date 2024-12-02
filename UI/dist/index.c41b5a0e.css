@@ -1,0 +1,457 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:400|Work+Sans:var(--label-small-font-weight),var(--label-medium-font-weight)";
+@import "https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css";
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.text-medium {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.text-medium .label {
+  color: var(--primary);
+  font-family: var(--label-medium-font-family);
+  font-size: var(--label-medium-font-size);
+  font-style: var(--label-medium-font-style);
+  font-weight: var(--label-medium-font-weight);
+  letter-spacing: var(--label-medium-letter-spacing);
+  line-height: var(--label-medium-line-height);
+  flex: 1;
+  margin-top: -1px;
+  position: relative;
+}
+
+.text-medium .iconly-light-outline-wrapper {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.text-medium .image-wrapper {
+  height: 20px;
+}
+
+.text-medium .image {
+  background-image: url("https://c.animaapp.com/v9zriqdu/img/group-3-2@2x.png");
+  background-size: 100% 100%;
+  width: 17px;
+  height: 17px;
+  position: relative;
+  top: 2px;
+  left: 2px;
+}
+
+.text-medium .overlap-group {
+  width: 12px;
+  height: 9px;
+  position: relative;
+  top: 4px;
+  left: 2px;
+}
+
+.text-medium .fill {
+  width: 12px;
+  height: 5px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+}
+
+.text-medium .img {
+  width: 4px;
+  height: 4px;
+  position: absolute;
+  top: 0;
+  left: 1px;
+}
+
+.text-medium .text {
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  position: relative;
+}
+
+.text-medium .text-wrapper {
+  color: var(--primary);
+  font-family: var(--label-medium-font-family);
+  font-size: var(--label-medium-font-size);
+  font-style: var(--label-medium-font-style);
+  font-weight: var(--label-medium-font-weight);
+  letter-spacing: var(--label-medium-letter-spacing);
+  line-height: var(--label-medium-line-height);
+  flex: 1;
+  margin-top: -1px;
+  position: relative;
+}
+
+.text-medium.left {
+  gap: 6px;
+  width: 66px;
+}
+
+.text-medium.middle {
+  flex-direction: column;
+  gap: 6px;
+  width: 44px;
+}
+
+.text-medium.none {
+  gap: 10px;
+  width: 40px;
+}
+
+.text-medium.left .text {
+  flex: 1;
+}
+
+.text-medium.middle .text {
+  flex: none;
+  align-self: stretch;
+  width: 100%;
+}
+
+.text-medium.none .text {
+  flex: 1;
+}
+
+.text-medium.middle .text-wrapper {
+  text-align: center;
+}
+
+.element-button-group {
+  border: 1.5px solid;
+  border-color: var(--primary);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  position: relative;
+}
+
+.element-button-group .text-small {
+  flex: none;
+  justify-content: center;
+  align-self: stretch;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.element-button-group .div {
+  color: var(--primary);
+  font-family: var(--label-small-font-family);
+  font-size: var(--label-small-font-size);
+  font-style: var(--label-small-font-style);
+  font-weight: var(--label-small-font-weight);
+  letter-spacing: var(--label-small-letter-spacing);
+  line-height: var(--label-small-line-height);
+  text-align: center;
+  flex: 1;
+  margin-top: -1px;
+  position: relative;
+}
+
+.element-button-group.large {
+  width: 88px;
+  padding: 12px 24px;
+}
+
+.element-button-group.position-right {
+  overflow: hidden;
+}
+
+.element-button-group.small {
+  width: 67px;
+  padding: 8px 16px;
+}
+
+.element-button-group.state-true {
+  background-color: var(--primary-subtle);
+}
+
+.element-button-group.medium {
+  width: 80px;
+  padding: 10px 20px;
+}
+
+.element-button-group.position-left {
+  overflow: hidden;
+}
+
+.element-button-group.position-left.large {
+  border-radius: 12px 0 0 12px;
+}
+
+.element-button-group.position-right.large {
+  border-radius: 0 12px 12px 0;
+}
+
+.element-button-group.small.position-right {
+  border-radius: 0 8px 8px 0;
+}
+
+.element-button-group.small.position-left {
+  border-radius: 8px 0 0 8px;
+}
+
+.element-button-group.position-left.medium {
+  border-radius: 10px 0 0 10px;
+}
+
+.element-button-group.position-right.medium {
+  border-radius: 0 10px 10px 0;
+}
+
+.iconly-light-outline {
+  background-image: url("https://c.animaapp.com/v9zriqdu/img/iconly-light-outline-upload-1.svg");
+  background-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+}
+
+.screen {
+  background-color: #f5f5f5;
+  width: 1440px;
+  height: 720px;
+}
+
+.screen .file-upload {
+  position: relative;
+}
+
+.screen .iconly-light-outline-upload {
+  opacity: .35 !important;
+  background-image: url("https://c.animaapp.com/v9zriqdu/img/iconly-light-outline-upload-3.svg") !important;
+  width: 100px !important;
+  height: 100px !important;
+  position: absolute !important;
+  top: 58px !important;
+  left: 140px !important;
+}
+
+.screen .text-wrapper-2 {
+  color: #000;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  height: 42px;
+  font-family: Roboto, Helvetica;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute;
+  top: 190px;
+  left: 36px;
+}
+
+.screen .choose-file-button {
+  width: 120px !important;
+  position: absolute !important;
+  top: 287px !important;
+  left: 130px !important;
+}
+
+.screen .one-button-group {
+  flex: none !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.screen .element-button-group-instance {
+  flex: unset !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  width: fit-content !important;
+  margin-left: -.5px !important;
+}
+
+.screen .file-upload-2 {
+  position: absolute;
+}
+
+.screen .text-wrapper-3 {
+  color: #000;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  width: 308px;
+  height: 42px;
+  font-family: Roboto, Helvetica;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute;
+  top: 189px;
+  left: 36px;
+}
+
+.screen .div-wrapper {
+  opacity: .35;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 58px;
+  left: 140px;
+}
+
+.screen .paper-wrapper {
+  height: 100px;
+}
+
+.screen .paper {
+  background-image: url("https://c.animaapp.com/v9zriqdu/img/group-3@2x.png");
+  background-size: 100% 100%;
+  width: 71px;
+  height: 83px;
+  position: relative;
+  top: 8px;
+  left: 13px;
+}
+
+.screen .fill-2 {
+  width: 28px;
+  height: 29px;
+  position: absolute;
+  top: 0;
+  left: 43px;
+}
+
+.screen .fill-3 {
+  width: 29px;
+  height: 6px;
+  position: absolute;
+  top: 53px;
+  left: 19px;
+}
+
+.screen .fill-4 {
+  width: 20px;
+  height: 6px;
+  position: absolute;
+  top: 37px;
+  left: 19px;
+}
+
+.screen .element-button-group-2 {
+  position: absolute;
+}
+
+.screen .one-button-group-instance {
+  width: unset !important;
+  flex: 1 !important;
+  align-self: stretch !important;
+}
+
+.screen .instance-node {
+  flex: none !important;
+  align-self: stretch !important;
+  width: 100% !important;
+}
+
+.screen .element-button-group-3 {
+  text-align: center !important;
+}
+
+.screen .element-button-group-4 {
+  width: unset !important;
+  background-color: #3a00e5 !important;
+  flex: 1 !important;
+  align-self: stretch !important;
+  margin-left: -1.5px !important;
+}
+
+.screen .element-button-group-5 {
+  color: #fff !important;
+  text-align: center !important;
+}
+
+.screen .false {
+  border: 10px dashed #00000059;
+  width: 400px;
+  height: 400px;
+  top: 160px;
+  left: 520px;
+}
+
+.screen .submitted, .screen .file-chosen {
+  width: 380px;
+  height: 380px;
+  top: 170px;
+  left: 530px;
+}
+
+.screen .file-upload.false .file-upload-2 {
+  width: 380px;
+  height: 380px;
+  top: 0;
+  left: 0;
+}
+
+.screen .file-upload.submitted .file-upload-2 {
+  color: #000;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  width: 308px;
+  height: 42px;
+  font-family: Roboto, Helvetica;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: normal;
+  top: 189px;
+  left: 36px;
+}
+
+.screen .file-upload.file-chosen .file-upload-2 {
+  width: 380px;
+  height: 380px;
+  top: 0;
+  left: 0;
+}
+
+.screen .file-upload.false .element-button-group-2 {
+  width: 380px;
+  top: 287px;
+  left: 0;
+}
+
+.screen .file-upload.submitted .element-button-group-2 {
+  opacity: .35;
+  width: 100px;
+  height: 100px;
+  top: 58px;
+  left: 140px;
+}
+
+.screen .file-upload.file-chosen .element-button-group-2 {
+  align-items: flex-start;
+  width: 380px;
+  display: flex;
+  top: 287px;
+  left: 0;
+}
+/*# sourceMappingURL=index.c41b5a0e.css.map */
