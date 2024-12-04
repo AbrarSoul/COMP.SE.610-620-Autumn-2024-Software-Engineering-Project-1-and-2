@@ -1,0 +1,8 @@
+# Ignore IDE settings
+.idea/
+
+# Ignore uploaded PDFs
+uploaded_pdfs/
+
+# Ignore Python virtual environment
+venv/
