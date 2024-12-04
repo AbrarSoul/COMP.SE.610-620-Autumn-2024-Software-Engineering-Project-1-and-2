@@ -2,9 +2,15 @@ import openai
 import streamlit as st
 import PyPDF2
 import relevance_check
+import os
+from dotenv import load_dotenv
 
 # Set up OpenAI API key
-openai.api_key = "API_KEY"
+if os.getenv("RENDER") is None:  # Render sets RENDER environment variable
+    load_dotenv()
+
+# Set OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize session state variables if they don’t already exist
 if "response_text" not in st.session_state:
