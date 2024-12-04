@@ -4,7 +4,7 @@ import PyPDF2
 import relevance_check
 
 # Set up OpenAI API key
-openai.api_key = "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"
+openai.api_key = "API_KEY"
 
 # Initialize session state variables if they don’t already exist
 if "response_text" not in st.session_state:
