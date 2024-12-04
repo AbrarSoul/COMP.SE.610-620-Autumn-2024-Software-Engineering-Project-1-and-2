@@ -1,9 +1,10 @@
 import openai
 import streamlit as st
 import PyPDF2
+import relevance_check
 
 # Set up OpenAI API key
-openai.api_key = "sk-1LKpr7ens5_W3uuGB6dIRwml2_7dO5NcTe2JIn6-uET3BlbkFJa5Zn-CakzhPfrHHmbluVpPCPEg3UIz6IopuIZU0UoA"
+openai.api_key = "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"
 
 # Initialize session state variables if they don’t already exist
 if "response_text" not in st.session_state:
@@ -51,21 +52,35 @@ if user_input and pdf_content and not st.session_state.response_generated:
     try:
         # Call OpenAI API with the gpt-3.5-turbo model
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant who can answer questions based on provided PDF content."},
                 {"role": "user", "content": full_context}
             ]
         )
         chatbot_response = response['choices'][0]['message']['content']
-        
+
         # Store the response and set the chatbox to show
         st.session_state.response_text = chatbot_response
         st.session_state.show_chatbox = True
         st.session_state.response_generated = True
 
+        # Relevance calculations
+        semantic_similarity = relevance_check.calculate_semantic_similarity(pdf_content, chatbot_response)
+        keyword_overlap = relevance_check.calculate_keyword_overlap(pdf_content, chatbot_response)
+        feedback_score, feedback_details = relevance_check.calculate_feedback_score(pdf_content, chatbot_response)
+
+        # Display relevance scores
+        st.write("### Relevance Scores:")
+        st.write(f"- **Semantic Similarity:** {semantic_similarity}")
+        st.write(f"- **Keyword Overlap:** {keyword_overlap * 100:.2f}%")
+        st.write(f"- **LLM Feedback Score:** {feedback_score}")
+        st.write(f"- **LLM Feedback Details:** {feedback_details}")
+
+    # except openai.error.OpenAIError as e:
+    #     st.error(f"OpenAI API Error: {str(e)}")
     except Exception as e:
-        st.error("An error occurred while generating a response. Please try again.")
+        st.error(f"An unexpected error occurred: {str(e)}")
 
 # Right column: Display a read-only chatbox if `show_chatbox` is True
 if st.session_state.show_chatbox:
