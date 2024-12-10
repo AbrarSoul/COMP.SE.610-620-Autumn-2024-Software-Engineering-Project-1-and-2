@@ -87,3 +87,41 @@ def get_user_role(user_id):
     conn.close()
     return role[0] if role else None
 
+def init_feedback_table():
+    """Initialize the feedback table in the database."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS feedback (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            feedback_text TEXT NOT NULL,
+            submitted_at TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+    print("Feedback table initialized successfully!")
+
+
+def submit_feedback(feedback_text):
+    """Insert anonymous feedback into the feedback table."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    init_feedback_table()
+    cursor.execute("INSERT INTO feedback (feedback_text, submitted_at) VALUES (?, ?)",
+                   (feedback_text, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    conn.commit()
+    conn.close()
+    print("Feedback submitted successfully!")
+
+
+def get_all_feedback():
+    """Retrieve all feedback from the feedback table."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    init_feedback_table()
+    cursor.execute("SELECT feedback_text, submitted_at FROM feedback ORDER BY submitted_at DESC")
+    feedback = cursor.fetchall()
+    conn.close()
+    return feedback
+

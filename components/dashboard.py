@@ -47,8 +47,6 @@ def dashboard():
             </div>
         """, unsafe_allow_html=True)
 
-    # Enhanced Feedback Section
+    # Direct users to the Feedback Page
     st.markdown('<div class="subheader">Feedback Section</div>', unsafe_allow_html=True)
-    feedback_text = st.text_area("Your Feedback", "Enter your feedback here...", height=100)
-    if st.button("Submit Feedback"):
-        st.success("Thank you for your feedback!")
+    st.write("Have feedback for us? Visit the [Feedback Page](#) to submit your thoughts anonymously!")

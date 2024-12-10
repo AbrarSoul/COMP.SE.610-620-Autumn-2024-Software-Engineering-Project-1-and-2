@@ -1,7 +1,7 @@
 import sqlite3
 import os
 import pytest
-from db import init_db, save_to_db, get_lectures, delete_from_db, register_user, authenticate_user
+from db import init_db, save_to_db, get_lectures, delete_from_db, register_user, authenticate_user, submit_feedback, get_all_feedback
 
 # Path for a temporary test database
 TEST_DB_PATH = "test_lecture_summaries.db"
@@ -65,3 +65,17 @@ def test_authenticate_user(setup_database):
     # Test authentication with incorrect credentials
     invalid_user = authenticate_user("test@example.com", "wrongpassword")
     assert invalid_user is None
+
+def test_feedback_submission(setup_database):
+    """Test submitting anonymous feedback."""
+    feedback_text = "This is a test feedback."
+    submit_feedback(feedback_text)
+    feedback_data = get_all_feedback()
+    assert len(feedback_data) == 1
+    assert feedback_data[0][0] == feedback_text
+
+
+def test_get_all_feedback_empty(setup_database):
+    """Test retrieving feedback when the table is empty."""
+    feedback_data = get_all_feedback()
+    assert len(feedback_data) == 0
