@@ -121,3 +121,6 @@ Uses the same LLM to evaluate the relevance of its generated content against the
 ### Why it’s important
 
 Provides an additional layer of evaluation by leveraging the LLM’s reasoning ability to judge the quality of its own output.
+
+###Live Demo
+[Click here to view the live demo](https://comp-se-610-620-autumn-2024-software.onrender.com/)

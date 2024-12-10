@@ -19,6 +19,8 @@ if "show_chatbox" not in st.session_state:
     st.session_state.show_chatbox = False
 if "response_generated" not in st.session_state:
     st.session_state.response_generated = False
+if "relevance_shown" not in st.session_state:
+    st.session_state.relevance_shown = False
 
 # Close button to hide the chatbox
 if st.session_state.show_chatbox:
@@ -56,7 +58,7 @@ if user_input and pdf_content and not st.session_state.response_generated:
     full_context = f"PDF content:\n{pdf_content}\n\nUser's question: {user_input}"
 
     try:
-        # Call OpenAI API with the gpt-3.5-turbo model
+        # Call OpenAI API with the gpt-4o-mini model
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
@@ -71,22 +73,8 @@ if user_input and pdf_content and not st.session_state.response_generated:
         st.session_state.show_chatbox = True
         st.session_state.response_generated = True
 
-        # Relevance calculations
-        semantic_similarity = relevance_check.calculate_semantic_similarity(pdf_content, chatbot_response)
-        keyword_overlap = relevance_check.calculate_keyword_overlap(pdf_content, chatbot_response)
-        feedback_score, feedback_details = relevance_check.calculate_feedback_score(pdf_content, chatbot_response)
-
-        # Display relevance scores
-        st.write("### Relevance Scores:")
-        st.write(f"- **Semantic Similarity:** {semantic_similarity}")
-        st.write(f"- **Keyword Overlap:** {keyword_overlap * 100:.2f}%")
-        st.write(f"- **LLM Feedback Score:** {feedback_score}")
-        st.write(f"- **LLM Feedback Details:** {feedback_details}")
-
-    # except openai.error.OpenAIError as e:
-    #     st.error(f"OpenAI API Error: {str(e)}")
     except Exception as e:
-        st.error(f"An unexpected error occurred: {str(e)}")
+        st.error("An error occurred while generating a response. Please try again.")
 
 # Right column: Display a read-only chatbox if `show_chatbox` is True
 if st.session_state.show_chatbox:
@@ -103,6 +91,24 @@ if st.session_state.show_chatbox:
             unsafe_allow_html=True
         )
 
+# Add a button to calculate relevance
+if st.button("Calculate Relevance Scores"):
+    st.session_state.relevance_shown = True
+
+# Display relevance scores if the button has been clicked
+if st.session_state.relevance_shown:
+    with st.spinner("Calculating relevance scores..."):
+        semantic_similarity = relevance_check.calculate_semantic_similarity(pdf_content, st.session_state.response_text)
+        keyword_overlap = relevance_check.calculate_keyword_overlap(pdf_content, st.session_state.response_text)
+        feedback_score, feedback_details = relevance_check.calculate_feedback_score(pdf_content, st.session_state.response_text)
+
+    st.write("### Relevance Scores:")
+    st.write(f"- **Semantic Similarity:** {semantic_similarity}")
+    st.write(f"- **Keyword Overlap:** {keyword_overlap * 100:.2f}%")
+    st.write(f"- **LLM Feedback Score:** {feedback_score}")
+    st.write(f"- **LLM Feedback Details:** {feedback_details}")
+
 # Reset response state if new input is given
 if user_input and not st.session_state.response_generated:
     st.session_state.response_generated = False
+    st.session_state.relevance_shown = False
