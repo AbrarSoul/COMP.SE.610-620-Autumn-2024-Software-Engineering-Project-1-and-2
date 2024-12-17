@@ -2,7 +2,7 @@ import openai
 import json
 import random
 
-openai.api_key = "API KEY"
+openai.api_key = os.getenv("OPENAI_API_KEY", "API KEY")
 
 def generate_quiz(pdf_content, difficulty):
     """
