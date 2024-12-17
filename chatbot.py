@@ -1,9 +1,16 @@
 import openai
 import streamlit as st
 import PyPDF2
+import relevance_check
+import os
+from dotenv import load_dotenv
 
 # Set up OpenAI API key
-openai.api_key = "sk-1LKpr7ens5_W3uuGB6dIRwml2_7dO5NcTe2JIn6-uET3BlbkFJa5Zn-CakzhPfrHHmbluVpPCPEg3UIz6IopuIZU0UoA"
+if os.getenv("RENDER") is None:  # Render sets RENDER environment variable
+    load_dotenv()
+
+# Set OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize session state variables if they don’t already exist
 if "response_text" not in st.session_state:
@@ -12,6 +19,8 @@ if "show_chatbox" not in st.session_state:
     st.session_state.show_chatbox = False
 if "response_generated" not in st.session_state:
     st.session_state.response_generated = False
+if "relevance_shown" not in st.session_state:
+    st.session_state.relevance_shown = False
 
 # Close button to hide the chatbox
 if st.session_state.show_chatbox:
@@ -49,16 +58,16 @@ if user_input and pdf_content and not st.session_state.response_generated:
     full_context = f"PDF content:\n{pdf_content}\n\nUser's question: {user_input}"
 
     try:
-        # Call OpenAI API with the gpt-3.5-turbo model
+        # Call OpenAI API with the gpt-4o-mini model
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant who can answer questions based on provided PDF content."},
                 {"role": "user", "content": full_context}
             ]
         )
         chatbot_response = response['choices'][0]['message']['content']
-        
+
         # Store the response and set the chatbox to show
         st.session_state.response_text = chatbot_response
         st.session_state.show_chatbox = True
@@ -82,6 +91,24 @@ if st.session_state.show_chatbox:
             unsafe_allow_html=True
         )
 
+# Add a button to calculate relevance
+if st.button("Calculate Relevance Scores"):
+    st.session_state.relevance_shown = True
+
+# Display relevance scores if the button has been clicked
+if st.session_state.relevance_shown:
+    with st.spinner("Calculating relevance scores..."):
+        semantic_similarity = relevance_check.calculate_semantic_similarity(pdf_content, st.session_state.response_text)
+        keyword_overlap = relevance_check.calculate_keyword_overlap(pdf_content, st.session_state.response_text)
+        feedback_score, feedback_details = relevance_check.calculate_feedback_score(pdf_content, st.session_state.response_text)
+
+    st.write("### Relevance Scores:")
+    st.write(f"- **Semantic Similarity:** {semantic_similarity}")
+    st.write(f"- **Keyword Overlap:** {keyword_overlap * 100:.2f}%")
+    st.write(f"- **LLM Feedback Score:** {feedback_score}")
+    st.write(f"- **LLM Feedback Details:** {feedback_details}")
+
 # Reset response state if new input is given
 if user_input and not st.session_state.response_generated:
     st.session_state.response_generated = False
+    st.session_state.relevance_shown = False

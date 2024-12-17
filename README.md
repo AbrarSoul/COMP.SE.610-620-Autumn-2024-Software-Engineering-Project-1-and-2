@@ -82,3 +82,87 @@ To run the test cases, use the following command:
 ```bash
 pytest tests/
 ```
+# Relevance Scoring Guide
+
+This project evaluates the relevance of LLM-generated content to the course material using three metrics: **Semantic Similarity**, **Keyword Overlap**, and **LLM Feedback Score**. Below is the interpretation of each score:
+
+## 1. Semantic Similarity
+
+Semantic similarity measures the closeness between the embeddings of the course material and the generated content. Scores range from 0 to 1, where higher scores indicate greater relevance.
+
+| Score Range | Interpretation   | Quality   |
+|-------------|------------------|-----------|
+| 0.85 - 1.00 | Highly relevant  | Excellent |
+| 0.70 - 0.84 | Relevant         | Good      |
+| 0.50 - 0.69 | Somewhat relevant| Average   |
+| 0.30 - 0.49 | Weak relevance   | Poor      |
+| 0.00 - 0.29 | Not relevant     | Very Bad  |
+
+### What it does
+
+Measures the overall similarity between the course material and the generated content based on their meanings, not just word matching.
+
+### How it works
+
+- Both the course material and generated content are converted into vector embeddings using a pre-trained model like OpenAI’s text-embedding-ada-002.
+- The similarity is calculated using cosine similarity, which measures the angle between the two vectors.
+- A score closer to 1 indicates high relevance, while a score closer to 0 indicates low relevance.
+
+### Why it’s important
+
+Captures the conceptual closeness between the source material and the output, ensuring the generated content aligns semantically.
+
+## 2. Keyword Overlap
+
+Keyword overlap calculates the percentage of keywords in the course material that also appear in the generated content. A higher percentage indicates better alignment.
+
+| Overlap Range | Interpretation   | Quality   |
+|---------------|------------------|-----------|
+| 75% - 100%    | Highly relevant  | Excellent |
+| 50% - 74%     | Relevant         | Good      |
+| 30% - 49%     | Somewhat relevant| Average   |
+| 10% - 29%     | Weak relevance   | Poor      |
+| 0% - 9%       | Not relevant     | Very Bad  |
+
+### What it does
+
+Compares the keywords in the course material with those in the generated content to find overlapping terms.
+
+### How it works
+
+- Extracts keywords from both the course material and the generated content using Natural Language Processing (NLP) techniques like spaCy.
+- Calculates the percentage of overlapping keywords relative to the total number of keywords in the course material.
+- A higher percentage indicates better relevance, as it shows the generated content uses terms related to the source material.
+
+### Why it’s important
+
+Ensures the generated content covers key topics and terms from the original material, which is critical for accurate representation.
+
+## 3. LLM Feedback Score
+
+The LLM feedback score is based on the LLM’s evaluation of the relevance of the generated content to the course material. Scores range from 0 to 10.
+
+| Score Range | Interpretation   | Quality   |
+|-------------|------------------|-----------|
+| 9 - 10      | Highly relevant  | Excellent |
+| 7 - 8       | Relevant         | Good      |
+| 5 - 6       | Somewhat relevant| Average   |
+| 3 - 4       | Weak relevance   | Poor      |
+| 0 - 2       | Not relevant     | Very Bad  |
+
+### What it does
+
+Uses the same LLM to evaluate the relevance of its generated content against the course material.
+
+### How it works
+
+- A specially designed prompt is sent to the LLM, asking it to compare the course material with the generated content.
+- The LLM provides a numerical score (0-10) and a short explanation of how relevant the generated content is.
+- A higher score reflects better relevance based on the LLM’s internal understanding of the context.
+
+### Why it’s important
+
+Provides an additional layer of evaluation by leveraging the LLM’s reasoning ability to judge the quality of its own output.
+
+###Live Demo
+[Click here to view the live demo](https://comp-se-610-620-autumn-2024-software.onrender.com/)
