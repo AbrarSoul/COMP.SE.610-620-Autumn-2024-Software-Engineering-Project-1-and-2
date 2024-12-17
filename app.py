@@ -6,10 +6,14 @@ from components.conceptual_examples import conceptual_examples
 from components.quizzes import quizzes
 from components.progress_tracking import progress_tracking
 from components.feedback import feedback
+from db import init_database
+
 
 
 # Initialize session state
 init_session_state()
+# Initialize the quiz results table on app startup
+init_database()
 
 # Set page configuration
 st.set_page_config(page_title="AI-Powered Teaching Assistant", layout="wide")

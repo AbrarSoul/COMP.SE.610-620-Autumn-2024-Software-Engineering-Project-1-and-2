@@ -21,6 +21,7 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            student_id TEXT UNIQUE,
             email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
             role TEXT NOT NULL CHECK (role IN ('student', 'teacher'))
@@ -29,7 +30,6 @@ def init_db():
 
     conn.commit()
     conn.close()
-    print("Database initialized successfully!")
 
 def save_to_db(title, file_path):
     conn = sqlite3.connect(DB_PATH)
@@ -55,11 +55,16 @@ def delete_from_db(lecture_id):
     conn.close()
 
 # Register a new user
-def register_user(email, password, role):
+def register_user(email, password, role, student_id=None):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     try:
-        cursor.execute("INSERT INTO users (email, password, role) VALUES (?, ?, ?)", (email, password, role))
+        if role == "student" and student_id:
+            cursor.execute("INSERT INTO users (email, password, role, student_id) VALUES (?, ?, ?, ?)",
+                           (email, password, role, student_id))
+        else:
+            cursor.execute("INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
+                           (email, password, role))
         conn.commit()
         return True
     except sqlite3.IntegrityError:
@@ -125,3 +130,124 @@ def get_all_feedback():
     conn.close()
     return feedback
 
+def init_quiz_results_table():
+    """Initialize the quiz results table in the database."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS quiz_results (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            student_id INTEGER NOT NULL,
+            lecture_name TEXT NOT NULL,
+            difficulty TEXT NOT NULL,
+            score INTEGER NOT NULL,
+            total_questions INTEGER NOT NULL,
+            submitted_at TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def save_quiz_result(student_id, lecture_name, difficulty, score, total_questions):
+    """
+    Save a student's quiz result into the database.
+
+    Args:
+        student_id (int): ID of the student.
+        lecture_name (str): Name of the lecture PDF.
+        difficulty (str): Difficulty level of the quiz.
+        score (int): Student's score.
+        total_questions (int): Total number of questions in the quiz.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO quiz_results (student_id, lecture_name, difficulty, score, total_questions, submitted_at)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ''', (student_id, lecture_name, difficulty, score, total_questions, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    conn.commit()
+    conn.close()
+
+
+def get_student_quiz_results(student_id):
+    """
+    Retrieve quiz results for a specific student.
+
+    Args:
+        student_id (int): ID of the student.
+
+    Returns:
+        list[tuple]: List of quiz results.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT lecture_name, difficulty, score, total_questions, submitted_at
+        FROM quiz_results
+        WHERE student_id = ?
+        ORDER BY submitted_at DESC
+    ''', (student_id,))
+    results = cursor.fetchall()
+    conn.close()
+    return results
+
+def get_filtered_quiz_results(student_id=None, email=None):
+    """
+    Retrieve quiz results based on filters.
+
+    Args:
+        student_id (str): Filter by student ID.
+        email (str): Filter by email.
+
+    Returns:
+        list[tuple]: Filtered quiz results.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    query = '''
+        SELECT u.student_id, u.email, q.lecture_name, q.difficulty, q.score, q.total_questions, q.submitted_at
+        FROM quiz_results q
+        JOIN users u ON q.student_id = u.student_id
+    '''
+    params = []
+
+    # Apply filters dynamically
+    if student_id:
+        query += " WHERE u.student_id = ?"
+        params.append(student_id)
+    elif email:
+        query += " WHERE u.email = ?"
+        params.append(email)
+
+    query += " ORDER BY q.submitted_at DESC"
+    cursor.execute(query, tuple(params))
+    results = cursor.fetchall()
+    conn.close()
+    return results
+
+def get_all_quiz_results():
+    """
+    Retrieve all quiz results (for teacher viewing).
+
+    Returns:
+        list[tuple]: List of all quiz results.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT student_id, lecture_name, difficulty, score, total_questions, submitted_at
+        FROM quiz_results
+        ORDER BY submitted_at DESC
+    ''')
+    results = cursor.fetchall()
+    conn.close()
+    return results
+
+def init_database():
+    """Initialize all required tables."""
+    init_db()
+    init_quiz_results_table()
+    print("Database tables initialized successfully!")
+    

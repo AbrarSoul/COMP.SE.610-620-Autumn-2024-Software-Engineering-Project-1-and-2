@@ -32,13 +32,18 @@ def register():
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
     role = st.selectbox("Role", ["teacher", "student"])
+    student_id = None
+
+    if role == "student":
+        student_id = st.text_input("Student ID (required for students)")
 
     if st.button("Register"):
-        if register_user(email, password, role):
+        if role == "student" and not student_id:
+            st.error("Student ID is required for student accounts.")
+        elif register_user(email, password, role, student_id):
             st.success("Registration successful! You can now log in.")
-            st.query_params.page = "login"
         else:
-            st.error("Email already exists. Please try a different one.")
+            st.error("Email or Student ID already exists. Please try a different one.")
 
 
 # Logout the current user
