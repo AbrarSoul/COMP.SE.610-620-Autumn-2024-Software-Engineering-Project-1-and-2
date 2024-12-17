@@ -245,9 +245,77 @@ def get_all_quiz_results():
     conn.close()
     return results
 
+def init_assignments_table():
+    """Initialize the assignments table."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS assignments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            student_id TEXT,
+            student_name TEXT,
+            assignment_title TEXT NOT NULL,
+            generated_assignment TEXT,  -- Allow NULL for this column
+            submitted_file_path TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def save_generated_assignment(assignment_title, generated_assignment):
+    """Save the generated assignment text to the database."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO assignments (assignment_title, generated_assignment)
+        VALUES (?, ?)
+    ''', (assignment_title, generated_assignment))
+    conn.commit()
+    conn.close()
+
+
+def submit_student_assignment(student_id, student_name, assignment_title, file_path):
+    """Save the student-submitted assignment PDF to the database."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO assignments (student_id, student_name, assignment_title, submitted_file_path)
+        VALUES (?, ?, ?, ?)
+    ''', (student_id, student_name, assignment_title, file_path))
+    conn.commit()
+    conn.close()
+
+
+def get_all_assignments():
+    """Fetch all submitted assignments (for teachers)."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT id, student_name, assignment_title, generated_assignment, submitted_file_path
+        FROM assignments
+    ''')
+    assignments = cursor.fetchall()
+    conn.close()
+    return assignments
+
+
+def get_student_assignments(student_id):
+    """Fetch assignments for a specific student."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT assignment_title, generated_assignment, submitted_file_path
+        FROM assignments
+        WHERE student_id = ?
+    ''', (student_id,))
+    assignments = cursor.fetchall()
+    conn.close()
+    return assignments
+
 def init_database():
     """Initialize all required tables."""
     init_db()
     init_quiz_results_table()
+    init_assignments_table()
     print("Database tables initialized successfully!")
     

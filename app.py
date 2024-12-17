@@ -5,6 +5,7 @@ from components.lecture_summaries import lecture_summaries
 from components.conceptual_examples import conceptual_examples
 from components.quizzes import quizzes
 from components.progress_tracking import progress_tracking
+from components.assignment import conceptual_assignments
 from components.feedback import feedback
 from db import init_database
 
@@ -37,24 +38,25 @@ st.title("Smart Teaching Assistant for RE")
 # Sidebar navigation
 page = st.sidebar.radio("Go to", [
     "Dashboard",
-    "Lecture Summaries",
-    "Conceptual Examples",
-    "Adaptive Quizzes",
-    "Progress Tracking",
+    "Materials",
+    "Studying lectures",
+    "Quiz",
+    "Assignment",
     "Feedback"
 ])
 
 # Render the selected page
 if page == "Dashboard":
     dashboard()
-elif page == "Lecture Summaries":
+    progress_tracking()
+elif page == "Materials":
     role_protect("teacher")  # Protect access to uploading/deleting content
     lecture_summaries()
-elif page == "Conceptual Examples":
+elif page == "Studying lectures":
     conceptual_examples()
-elif page == "Adaptive Quizzes":
+elif page == "Quiz":
     quizzes()
-elif page == "Progress Tracking":
-    progress_tracking()
+elif page == "Assignment":
+    conceptual_assignments()
 elif page == "Feedback":
     feedback()
