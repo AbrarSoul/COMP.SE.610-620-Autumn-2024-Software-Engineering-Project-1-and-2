@@ -93,17 +93,34 @@ def conceptual_assignments():
                 generated_assignment = generate_conceptual_assignment(selected_lecture_title)
                 if generated_assignment:
                     file_path = save_assignment_to_doc(generated_assignment, selected_lecture_title)
-                    st.markdown("### Generated Assignment:")
-                    st.text_area("Generated Assignment", generated_assignment, height=200, disabled=True)
                     st.success("Assignment generated successfully!")
+                    if file_path:
+                        st.download_button(
+                            label="Download Generated Assignment",
+                            data=open(file_path, "rb"),
+                            file_name=os.path.basename(file_path),
+                            mime="text/plain"
+                        )
+                    save_generated_assignment(selected_lecture_title, generated_assignment)
+
+        # View Submitted Assignments
+        st.subheader("Your Submitted Assignments")
+        student_assignments = get_student_assignments(user["id"])
+        if not student_assignments:
+            st.info("No submissions found.")
+        else:
+            for assignment in student_assignments:
+                st.write(f"**Assignment Title**: {assignment[0]}")
+                if assignment[2]:  # Check if the submission file path exists
                     st.download_button(
-                        label="Download Assignment as Doc",
-                        data=open(file_path, "rb"),
-                        file_name=os.path.basename(file_path),
-                        mime="text/plain"
+                        label="Download Your Submission",
+                        data=open(assignment[2], "rb"),
+                        file_name=os.path.basename(assignment[2]),
+                        mime="application/pdf"
                     )
                 else:
-                    st.error("Failed to generate the assignment. Please try again.")
+                    st.warning("No file submitted for this assignment.")
+                st.write("---")
 
         # Submit Assignment
         st.markdown("### Submit Your Completed Assignment")
@@ -128,31 +145,30 @@ def conceptual_assignments():
         if not assignments:
             st.info("No assignments submitted yet.")
         else:
-            for assignment in assignments:
+            for idx, assignment in enumerate(assignments):
                 st.write(f"**Student Name**: {assignment[1]}")
                 st.write(f"**Assignment Title**: {assignment[2]}")
 
                 # Link to download LLM-generated assignment
                 if assignment[3]:
                     doc_file_path = save_assignment_to_doc(assignment[3], assignment[2])
-                    st.download_button("Download Generated Assignment", open(doc_file_path, "rb"), file_name=os.path.basename(doc_file_path))
+                    st.download_button(
+                        label="Download Generated Assignment",
+                        data=open(doc_file_path, "rb"),
+                        file_name=os.path.basename(doc_file_path),
+                        key=f"generated_{idx}"
+                    )
 
                 # Link to student submission (PDF)
                 if assignment[4]:
-                    st.download_button("Download Submitted PDF", open(assignment[4], "rb"), file_name=os.path.basename(assignment[4]))
+                    st.download_button(
+                        label="Download Submitted PDF",
+                        data=open(assignment[4], "rb"),
+                        file_name=os.path.basename(assignment[4]),
+                        key=f"submitted_{idx}"
+                    )
                 st.write("---")
 
-    # Student View: View Own Submissions
-    else:
-        st.subheader("Your Submitted Assignments")
-        student_assignments = get_student_assignments(user["id"])
-        if not student_assignments:
-            st.info("No submissions found.")
-        else:
-            for assignment in student_assignments:
-                st.write(f"**Assignment Title**: {assignment[0]}")
-                st.download_button("Download Your Submission", open(assignment[2], "rb"), file_name=os.path.basename(assignment[2]))
-                st.write("---")
 
 
 if __name__ == "__main__":
