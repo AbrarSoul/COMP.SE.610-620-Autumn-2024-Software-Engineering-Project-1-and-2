@@ -74,7 +74,6 @@ def conceptual_assignments():
     user = st.session_state.get("user", {"role": "student", "id": "unknown"})
 
     # Fetch lectures
-    st.info("Fetching available lectures...")
     lectures = get_lectures()
     if not lectures:
         st.warning("No lecture summaries are available for generating assignments. Please upload lecture files.")
@@ -92,15 +91,46 @@ def conceptual_assignments():
             with st.spinner("Generating real-life scenario-based assignment..."):
                 generated_assignment = generate_conceptual_assignment(selected_lecture_title)
                 if generated_assignment:
-                    file_path = save_assignment_to_doc(generated_assignment, selected_lecture_title)
-                    st.success("Assignment generated successfully!")
-                    if file_path:
+                    # Display the generated assignment in the UI
+                    st.markdown("### Generated Assignment:")
+                    st.markdown(f"**Assignment Description:**\n\n{generated_assignment}", unsafe_allow_html=False)
+
+                    # Save the assignment to a PDF file
+                    pdf_filename = f"{selected_lecture_title}_assignment.pdf"
+                    pdf_file_path = os.path.join(GENERATED_DIR, pdf_filename)
+                    
+                    try:
+                        from reportlab.lib.pagesizes import letter
+                        from reportlab.pdfgen import canvas
+
+                        # Save the generated content as a PDF
+                        c = canvas.Canvas(pdf_file_path, pagesize=letter)
+                        c.setFont("Helvetica", 12)
+                        y_position = 750  # Start position for the text
+                        line_height = 15
+
+                        for line in generated_assignment.split("\n"):
+                            if y_position < 50:  # Create a new page if out of space
+                                c.showPage()
+                                c.setFont("Helvetica", 12)
+                                y_position = 750
+                            c.drawString(50, y_position, line)
+                            y_position -= line_height
+                        
+                        c.save()
+                    except Exception as e:
+                        st.error(f"Error saving PDF: {e}")
+
+                    # Display download button for the generated PDF
+                    with open(pdf_file_path, "rb") as pdf_file:
                         st.download_button(
-                            label="Download Generated Assignment",
-                            data=open(file_path, "rb"),
-                            file_name=os.path.basename(file_path),
-                            mime="text/plain"
+                            label="Download Generated Assignment (PDF)",
+                            data=pdf_file,
+                            file_name=pdf_filename,
+                            mime="application/pdf"
                         )
+
+                    # Save the generated assignment in the database
                     save_generated_assignment(selected_lecture_title, generated_assignment)
 
         # View Submitted Assignments
@@ -125,51 +155,78 @@ def conceptual_assignments():
         # Submit Assignment
         st.markdown("### Submit Your Completed Assignment")
         with st.form("submission_form"):
-            student_name = st.text_input("Your Name", "")
+            student_email = st.text_input("Your Email Address", "")
             uploaded_file = st.file_uploader("Upload Assignment (PDF only)", type=["pdf"])
             submitted = st.form_submit_button("Submit Assignment")
             if submitted:
-                if not student_name:
-                    st.error("Please provide your name before submitting.")
+                if not student_email:
+                    st.error("Please provide your email address before submitting.")
                 elif not uploaded_file:
                     st.error("Please upload your assignment as a PDF.")
                 else:
-                    file_path = save_uploaded_pdf(uploaded_file, student_name)
-                    submit_student_assignment(user["id"], student_name, selected_lecture_title, file_path)
+                    file_path = save_uploaded_pdf(uploaded_file, student_email)
+                    submit_student_assignment(user["id"], student_email, selected_lecture_title, file_path)
                     st.success("Assignment submitted successfully!")
 
     # Teacher View: Display Submitted Assignments
     elif user["role"] == "teacher":
-        st.subheader("All Submitted Assignments")
+        st.subheader("Teacher Dashboard: View All Assignments")
+
+        # Filter Section
+        st.markdown("### Filter by Student ID or Email")
+        col1, col2 = st.columns(2)
+        with col1:
+            student_id_filter = st.text_input("Enter Student ID (optional):")
+        with col2:
+            email_filter = st.text_input("Enter Email ID (optional):")
+
+        # Fetch all assignments
         assignments = get_all_assignments()
+
+        # Apply filters
+        if student_id_filter or email_filter:
+            if student_id_filter:
+                assignments = [a for a in assignments if str(a[0]) == student_id_filter]
+            if email_filter:
+                assignments = [a for a in assignments if a[1] and email_filter.lower() in a[1].lower()]
+
+            st.markdown(f"### Showing Filtered Results for Student ID: `{student_id_filter}` or Email: `{email_filter}`")
+        else:
+            st.markdown("### Showing All Assignments")
+
+        # Display Assignments
         if not assignments:
-            st.info("No assignments submitted yet.")
+            st.info("No assignments found.")
         else:
             for idx, assignment in enumerate(assignments):
-                st.write(f"**Student Name**: {assignment[1]}")
+                st.write(f"### **Assignment Block**")
+                st.write(f"**Student ID**: {assignment[0]}")
+                st.write(f"**Email ID**: {assignment[1]}")
                 st.write(f"**Assignment Title**: {assignment[2]}")
 
-                # Link to download LLM-generated assignment
+                # Display Generated Assignment
                 if assignment[3]:
                     doc_file_path = save_assignment_to_doc(assignment[3], assignment[2])
+                    st.write("**Generated Assignment:**")
                     st.download_button(
                         label="Download Generated Assignment",
                         data=open(doc_file_path, "rb"),
                         file_name=os.path.basename(doc_file_path),
-                        key=f"generated_{idx}"
+                        key=f"assignment_generated_{idx}"
                     )
 
-                # Link to student submission (PDF)
+                # Display Submitted Assignment
                 if assignment[4]:
+                    st.write("**Submitted Assignment:**")
                     st.download_button(
-                        label="Download Submitted PDF",
+                        label="Download Submitted Assignment",
                         data=open(assignment[4], "rb"),
                         file_name=os.path.basename(assignment[4]),
-                        key=f"submitted_{idx}"
+                        key=f"assignment_submitted_{idx}"
                     )
+                else:
+                    st.warning("No assignment submitted for this lecture.")
                 st.write("---")
-
-
 
 if __name__ == "__main__":
     conceptual_assignments()
