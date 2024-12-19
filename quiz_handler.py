@@ -1,6 +1,7 @@
 import openai
 import json
 import random
+import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY", "API KEY")
 
@@ -36,27 +37,37 @@ def generate_quiz(pdf_content, difficulty):
             "answer": "Correct answer or list of correct answers"
         }}
       ]
+    - Ensure the generated quiz is in valid JSON format.
     """
     # Call OpenAI API
     try:
+        # Call OpenAI API
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[{"role": "system", "content": prompt}]
         )
-        quiz_data = response['choices'][0]['message']['content']
-    except Exception as e:
-        print(f"Error generating quiz: {e}")
-        return [], {}
+        raw_data = response['choices'][0]['message']['content']
 
-    # Convert response into Python objects
-    try:
+        print("Raw Quiz Data for Debugging:", raw_data)  # Debugging print
+
+        # Extract JSON block
+        json_start = raw_data.find("[")
+        json_end = raw_data.rfind("]")
+        if json_start == -1 or json_end == -1 or json_start > json_end:
+            raise ValueError("No valid JSON block found in the response.")
+        quiz_data = raw_data[json_start:json_end + 1]
+
+        # Parse the JSON block
         quiz_questions = json.loads(quiz_data)
         correct_answers = {idx: q["answer"] for idx, q in enumerate(quiz_questions)}
         return quiz_questions, correct_answers
-    except json.JSONDecodeError:
-        print("Error parsing quiz data.")
-        return [], {}
 
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
+        return [], {}
+    except Exception as e:
+        print(f"Error generating quiz: {e}")
+        return [], {}
 
 def evaluate_quiz(submitted_answers, correct_answers):
     """
