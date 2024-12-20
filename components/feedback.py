@@ -7,12 +7,12 @@ init_feedback_table()
 
 
 def feedback():
-    st.header("Feedback")
+    st.markdown("<h1 style='color: #4CAF50;'>Feedback</h1>", unsafe_allow_html=True)
 
     # Role-based feedback functionality
     if has_role("student"):
         st.write("We value your feedback to enhance this learning assistant.")
-        st.subheader("Submit Feedback (Anonymous)")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Submit Feedback (Anonymous)</h3>", unsafe_allow_html=True)
         feedback_text = st.text_area("Your Feedback", placeholder="Enter your feedback here...")
         if st.button("Submit Feedback"):
             if feedback_text.strip():
@@ -22,7 +22,7 @@ def feedback():
                 st.warning("Feedback cannot be empty.")
 
     elif has_role("teacher"):
-        st.subheader("View Feedback")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>View Feedback</h3>", unsafe_allow_html=True)
         feedback_data = get_all_feedback()
 
         if feedback_data:
