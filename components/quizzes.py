@@ -8,7 +8,7 @@ from auth import has_role
 UPLOAD_DIR = "uploaded_pdfs"
 
 def quizzes():
-    st.title("Take a Quiz")
+    st.markdown("<h1 style='color: #4CAF50;'>Take a Quiz</h1>", unsafe_allow_html=True)
 
     # Retrieve user details from session state
     user = st.session_state.get("user")

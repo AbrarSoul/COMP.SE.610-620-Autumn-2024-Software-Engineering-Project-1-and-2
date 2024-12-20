@@ -39,7 +39,8 @@ def typing_effect(text):
 
 
 def conceptual_examples():
-    st.markdown('<div class="lecture-header">Studying Lectures</div>', unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #4CAF50;'>Studying Lectures</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Choose a lecture from the below list and study</h3>", unsafe_allow_html=True)
 
     # Fetch lectures
     lectures = get_lectures()
@@ -112,7 +113,7 @@ def conceptual_examples():
                 st.write(f"**{key}**: {value}")
 
     # Custom prompt feature
-    st.markdown("### Ask anything if you want to know more about the material:")
+    st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Ask anything if you want to know more about the lecture:</h3>", unsafe_allow_html=True)
     user_prompt = st.text_area("Enter your prompt here (related to the selected lecture):")
     if st.button("Generate Custom Response"):
         if user_prompt.strip():
