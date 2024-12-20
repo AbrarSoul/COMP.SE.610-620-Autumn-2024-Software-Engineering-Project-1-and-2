@@ -48,8 +48,6 @@ def generate_quiz(pdf_content, difficulty):
         )
         raw_data = response['choices'][0]['message']['content']
 
-        print("Raw Quiz Data for Debugging:", raw_data)  # Debugging print
-
         # Extract JSON block
         json_start = raw_data.find("[")
         json_end = raw_data.rfind("]")

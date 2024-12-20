@@ -59,7 +59,9 @@ def register_user(email, password, role, student_id=None):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     try:
-        if role == "student" and student_id:
+        if role == "student":
+            if not student_id:  # Ensure Student ID is mandatory for students
+                raise ValueError("Student ID is required for student registration.")
             cursor.execute("INSERT INTO users (email, password, role, student_id) VALUES (?, ?, ?, ?)",
                            (email, password, role, student_id))
         else:
@@ -188,41 +190,6 @@ def get_student_quiz_results(student_id):
         WHERE student_id = ?
         ORDER BY submitted_at DESC
     ''', (student_id,))
-    results = cursor.fetchall()
-    conn.close()
-    return results
-
-def get_filtered_quiz_results(student_id=None, email=None):
-    """
-    Retrieve quiz results based on filters.
-
-    Args:
-        student_id (str): Filter by student ID.
-        email (str): Filter by email.
-
-    Returns:
-        list[tuple]: Filtered quiz results.
-    """
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-
-    query = '''
-        SELECT u.student_id, u.email, q.lecture_name, q.difficulty, q.score, q.total_questions, q.submitted_at
-        FROM quiz_results q
-        JOIN users u ON q.student_id = u.student_id
-    '''
-    params = []
-
-    # Apply filters dynamically
-    if student_id:
-        query += " WHERE u.student_id = ?"
-        params.append(student_id)
-    elif email:
-        query += " WHERE u.email = ?"
-        params.append(email)
-
-    query += " ORDER BY q.submitted_at DESC"
-    cursor.execute(query, tuple(params))
     results = cursor.fetchall()
     conn.close()
     return results

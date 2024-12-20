@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from pdf_extractor import extract_text_from_pdf
 from quiz_handler import generate_quiz, evaluate_quiz
-from db import save_quiz_result, get_student_quiz_results, get_filtered_quiz_results, get_all_quiz_results
+from db import save_quiz_result, get_student_quiz_results, get_all_quiz_results
 from auth import has_role
 
 UPLOAD_DIR = "uploaded_pdfs"
@@ -100,7 +100,22 @@ def quizzes():
     # Teacher View: Show Only Student Results
     elif role == "teacher":
         st.subheader("All Students' Quiz Results")
+        
+        # Filter Section
+        st.markdown("### Filter by Student ID")
+        student_id_filter = st.text_input("Enter Student ID (optional):")
+
+        # Fetch all quiz results
         all_results = get_all_quiz_results()
+
+        # Apply filter
+        if student_id_filter:
+            all_results = [r for r in all_results if str(r[0]) == student_id_filter]
+            st.markdown(f"### Showing Filtered Results for Student ID: `{student_id_filter}`")
+        else:
+            st.markdown("### Showing All Quiz Results")
+
+        # Display Quiz Results
         if not all_results:
             st.info("No quiz results are available yet.")
         else:
