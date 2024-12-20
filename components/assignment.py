@@ -170,10 +170,10 @@ def conceptual_assignments():
 
     # Teacher View: Display Submitted Assignments
     elif user["role"] == "teacher":
-        st.subheader("Teacher Dashboard: View All Assignments")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>View All Assignments</h3>", unsafe_allow_html=True)
 
         # Filter Section
-        st.markdown("### Filter by Student ID or Email")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Filter by Student ID or Email</h3>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             student_id_filter = st.text_input("Enter Student ID (optional):")
@@ -192,7 +192,7 @@ def conceptual_assignments():
 
             st.markdown(f"### Showing Filtered Results for Student ID: `{student_id_filter}` or Email: `{email_filter}`")
         else:
-            st.markdown("### Showing All Assignments")
+            st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Showing All Assignments</h3>", unsafe_allow_html=True)
 
         # Display Assignments
         if not assignments:

@@ -99,10 +99,10 @@ def quizzes():
 
     # Teacher View: Show Only Student Results
     elif role == "teacher":
-        st.subheader("All Students' Quiz Results")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>All Students' Quiz Results</h3>", unsafe_allow_html=True)
         
         # Filter Section
-        st.markdown("### Filter by Student ID")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Filter by Student ID</h3>", unsafe_allow_html=True)
         student_id_filter = st.text_input("Enter Student ID (optional):")
 
         # Fetch all quiz results
@@ -111,9 +111,10 @@ def quizzes():
         # Apply filter
         if student_id_filter:
             all_results = [r for r in all_results if str(r[0]) == student_id_filter]
-            st.markdown(f"### Showing Filtered Results for Student ID: `{student_id_filter}`")
+            st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Showing Filtered Results for Student ID:</h3>", unsafe_allow_html=True)
         else:
-            st.markdown("### Showing All Quiz Results")
+            st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Showing All Quiz Results</h3>", unsafe_allow_html=True)
+            
 
         # Display Quiz Results
         if not all_results:
