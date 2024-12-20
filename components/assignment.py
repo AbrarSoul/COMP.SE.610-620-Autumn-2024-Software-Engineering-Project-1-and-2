@@ -68,7 +68,7 @@ def save_uploaded_pdf(uploaded_file, student_name):
 
 
 def conceptual_assignments():
-    st.markdown("<h1 style='color: #4CAF50;'>Real-Life Scenario-Based Conceptual Assignments</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #4CAF50;'>Create your Assignments</h1>", unsafe_allow_html=True)
 
     # Fetch user role from session
     user = st.session_state.get("user", {"role": "student", "id": "unknown"})
@@ -134,7 +134,7 @@ def conceptual_assignments():
                     save_generated_assignment(selected_lecture_title, generated_assignment)
 
         # View Submitted Assignments
-        st.subheader("Your Submitted Assignments")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Your Submitted Assignments</h3>", unsafe_allow_html=True)
         student_assignments = get_student_assignments(user["id"])
         if not student_assignments:
             st.info("No submissions found.")
@@ -153,7 +153,7 @@ def conceptual_assignments():
                 st.write("---")
 
         # Submit Assignment
-        st.markdown("### Submit Your Completed Assignment")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Submit Your Completed Assignment</h3>", unsafe_allow_html=True)
         with st.form("submission_form"):
             student_email = st.text_input("Your Email Address", "")
             uploaded_file = st.file_uploader("Upload Assignment (PDF only)", type=["pdf"])
