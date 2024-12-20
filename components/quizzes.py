@@ -28,11 +28,11 @@ def quizzes():
             return
 
         # Lecture Selection
-        st.subheader("Select a Lecture to Generate a Quiz")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Select a Lecture to Generate a Quiz</h3>", unsafe_allow_html=True)
         selected_lecture = st.selectbox("Choose a Lecture:", pdf_files)
 
         # Difficulty Level Selection
-        st.subheader("Choose Difficulty Level")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Choose Difficulty Level</h3>", unsafe_allow_html=True)
         difficulty = st.radio("Difficulty Level:", ["easy", "medium", "hard"])
 
         # Generate Quiz
@@ -56,7 +56,7 @@ def quizzes():
 
         # Display Quiz Form
         if "quiz_questions" in st.session_state and not st.session_state.get("submitted", False):
-            st.subheader("Quiz Form")
+            st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Quiz Form</h3>", unsafe_allow_html=True)
             submitted_answers = {}
             for idx, question in enumerate(st.session_state.quiz_questions):
                 st.markdown(f"**Q{idx + 1}: {question['question']}**")
@@ -80,12 +80,12 @@ def quizzes():
 
         # Display Results
         if st.session_state.get("submitted", False):
-            st.subheader("Quiz Results")
+            st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Quiz Results</h3>", unsafe_allow_html=True)
             for idx, result in st.session_state.feedback.items():
                 st.write(f"Q{idx + 1}: {result}")
 
         # Display Quiz History
-        st.subheader("Your Quiz Results")
+        st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Your Quiz Results</h3>", unsafe_allow_html=True)
         results = get_student_quiz_results(student_id)
         if not results:
             st.info("You have not taken any quizzes yet.")
