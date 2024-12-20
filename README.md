@@ -1,168 +1,92 @@
-# LLM-powered Teaching Assistant for Requirements Engineering (RE) Students
+# LLM-Powered Online Teaching Assistant for Requirements Engineering (RE) Course (APUOPE-RE)
 
-The AI-Driven Teaching Assistant (TA) is designed to enhance learning in Requirements Engineering (RE) by offering interactive content, adaptive quizzing, in-depth explanations, personalized support, and engagement tools. This assistant tailors content to each student’s needs, ensuring an engaging, efficient, and comprehensive learning experience.
+## Live Project Link
+[https://comp-se-610-620-autumn-2024-software.onrender.com/](https://comp-se-610-620-autumn-2024-software.onrender.com/)
 
-## Our recommended key requirements so far
+## User Acceptance Testing (UAT) Process
 
-### 1. Interactive Content Generation
-- **Lecture Summaries**: Automatically summarize lecture content or textbook chapters into concise notes, emphasizing core concepts.
-- **Contextual Examples**: Generate context-rich examples specific to RE topics (e.g., requirements elicitation, analysis, validation) to aid understanding.
-- **Real-World Scenarios**: Create real-world case studies based on RE concepts to demonstrate practical applications.
-- **Comparison Insights**: Offer comparisons between similar concepts (e.g., MoSCoW analysis vs. Kano model) to clarify differences.
+### Step-1: Register as a Teacher and Login as a Teacher
 
-### 2. Adaptive Quizzing and Practice
-- **Personalized Question Generation**: Generate questions based on each student’s learning history, focusing on areas needing improvement.
-- **Dynamic Difficulty Adjustment**: Adjust the difficulty of quizzes based on students' quiz performance, providing additional challenges or support where needed.
-- **Concept Reinforcement Mode**: Offer targeted practice on weak areas if students struggle with specific quiz topics, reinforcing learning.
+1. **Register and Login**
+   - Register with any email and set a password.
+   - Choose 'teacher' from the role panel.
+   - Login after completing the registration.
 
-### 3. In-Depth Explanations and Guidance
-- **Detailed Step-by-Step Solutions**: Provide detailed explanations for each quiz question, showing correct and incorrect answers with reasoning.
-- **Interactive Q&A Support**: Allow students to ask questions on specific RE concepts and get instant, contextual responses.
-- **Guided Exercises**: Walk students through complex RE processes (e.g., developing use cases, creating requirements documents) step-by-step, allowing them to work independently with LLM guidance.
+2. **Dashboard**
+   - Navigate to the Dashboard to see an overview of the course with progress.
+   - Note: This page is structured with dummy data and is not integrated with live data as it was not required by the customer. Further development is planned.
 
-### 4. Feedback and Insight Tools
-- **Real-Time Feedback Collection**: After each quiz or session, ask students to rate the content's helpfulness and suggest improvements, feeding this into a continuous refinement loop.
-- **Student Progress Tracking**: Monitor students’ progress, highlighting improvement areas and suggesting personalized study plans.
-- **Misconception Analysis**: Identify and flag common misconceptions or misunderstandings for targeted correction.
+3. **Materials**
+   - If any material is listed, delete them for a fresh start.
+   - Add your own materials. Materials can be any PDF file on your PC.
 
-### 5. Customization and Personalization
-- **Preferred Learning Style Customization**: Adjust responses based on each student's preferred learning style, whether they prefer definitions, analogies, or visual aids.
-- **Personalized Study Reminders and Tips**: Send reminders for study sessions or tips based on students' progress, helping them stay engaged and focused.
-- **Adaptive Goal Setting**: Enable students to set personal goals (e.g., mastering a specific RE technique) and receive targeted content to reach them.
+4. **Studying Lectures**
+   - View uploaded materials in the list panel.
+   - Choose any material from the list and use the following buttons:
+     - "Generate Conceptual Example"
+     - "Generate Summary"
+     - "Find Contents"
+   - These buttons will generate conceptual examples, summaries, and contents based on the selected material.
+   - After generating the response, check the relevance of the content using the "Check Relevance" button (this button appears after generating a response).
+   - Write prompts in the text field below for further analysis on the material.
 
-### 6. Enhanced Engagement Features
-- **Gamified Learning**: Introduce point systems or badges for completing quizzes, improving retention, or mastering new topics.
-- **Scenario-Based Learning Paths**: Offer scenario-based learning paths where students can “role-play” as RE professionals and make decisions based on simulated project requirements.
-- **Peer Interaction Modules**: Enable virtual peer review sessions, allowing students to review and critique each other’s answers or case studies.
+5. **Quiz**
+   - No information will be displayed initially as no student has taken any quiz yet.
 
-### 7. Deployment and Monitoring Tools
-- **Integration with Learning Management Systems (LMS)**: Integrate with platforms like Moodle or Blackboard for seamless access to quizzes and content.
-- **Analytics Dashboard for Educators**: Provide teachers with analytics on student engagement, performance, and areas where students need additional support.
-- **Scalability and Reliability**: Ensure the system can handle varying loads with robust error handling, ensuring a reliable experience for all students.
+6. **Assignment**
+   - No information will be displayed initially as no student has submitted any assignment yet.
 
-## How to Run the Project
+7. **Feedback**
+   - No information will be displayed initially as no student has submitted any feedback yet.
 
-1. **Clone the Repository**:
-    ```bash
-    git clone -b user_authentication_authorization_ozayer https://github.com/AbrarSoul/COMP.SE.610-620-Autumn-2024-Software-Engineering-Project-1-and-2.git
-    cd <project-directory>
-    ```
-2. **Ensure Permissions**: If the run.sh script does not have execution permissions, grant them:
-    ```bash
-    chmod +x run.sh
-    ```
-3. **Run the Setup and Application**: Execute the script to set up and run the project:
-    ```bash
-    ./run.sh
-    ```
+### Step-2: Register as a Student and Login as a Student
 
-## What the Script Does
+1. **Register and Login**
+   - Register with another email and set a password.
+   - Choose 'student' from the role panel.
+   - Provide any ID as the student ID.
+   - Login after completing the registration.
 
-1. **Checks for a Virtual Environment**: Creates a new venv directory if it doesn't exist.
-2. **Activates the Virtual Environment**: Ensures all commands run in an isolated Python environment.
-3. **Installs Dependencies**: Installs all required Python libraries listed in requirements.txt.
-4. **Initializes the Database**: Sets up the SQLite database and ensures required tables are created.
-5. **Runs the Application**: Launches the Streamlit app.
+2. **Dashboard**
+   - Navigate to the Dashboard to see an overview of the course with progress.
+   - Note: This page is structured with dummy data and is not integrated with live data as it was not required by the customer. Further development is planned.
 
-## Debugging Tips
-If you encounter:
-    ```bash
-    ./run.sh: bad interpreter: /bin/bash^M: no such file or directory
-    ```
-Reason: Line endings are in Windows format (CRLF) instead of Unix (LF).
-Fix:
-Open the script in VS Code.
-Click the CRLF button at the bottom right corner.
-Select LF and save the file.
+3. **Materials**
+   - View materials uploaded by the teacher.
+   - As a student, you can only view materials uploaded by the teacher. You cannot upload or delete any material.
 
-## Running Test Cases
+4. **Studying Lectures**
+   - View uploaded materials in the list panel.
+   - Choose any material from the list and use the following buttons:
+     - "Generate Conceptual Example"
+     - "Generate Summary"
+     - "Find Contents"
+   - These buttons will generate conceptual examples, summaries, and contents based on the selected material.
+   - After generating the response, check the relevance of the content using the "Check Relevance" button (this button appears after generating a response).
+   - Write prompts in the text field below for further analysis on the material.
 
-To run the test cases, use the following command:
+5. **Quiz**
+   - Choose any material from the dropdown list.
+   - Select a difficulty level and press "Generate Quiz" to take the quiz.
+   - After answering the quiz questions, your score will be displayed.
 
-```bash
-pytest tests/
-```
-# Relevance Scoring Guide
+6. **Assignment**
+   - Choose any material from the dropdown list.
+   - Press "Generate Conceptual Assignment" to generate an assignment with instructions.
+   - The generated assignment will also be available as a PDF.
+   - Download the PDF by pressing "Download Generated Assignment (PDF)".
+   - Upload your completed assignment below with your name.
 
-This project evaluates the relevance of LLM-generated content to the course material using three metrics: **Semantic Similarity**, **Keyword Overlap**, and **LLM Feedback Score**. Below is the interpretation of each score:
+7. **Feedback**
+   - Submit your feedback anonymously as a student.
 
-## 1. Semantic Similarity
+### Step-3: Login Again as a Teacher
 
-Semantic similarity measures the closeness between the embeddings of the course material and the generated content. Scores range from 0 to 1, where higher scores indicate greater relevance.
+1. **Quiz**
+   - View the quiz responses submitted when logged in as a student.
 
-| Score Range | Interpretation   | Quality   |
-|-------------|------------------|-----------|
-| 0.85 - 1.00 | Highly relevant  | Excellent |
-| 0.70 - 0.84 | Relevant         | Good      |
-| 0.50 - 0.69 | Somewhat relevant| Average   |
-| 0.30 - 0.49 | Weak relevance   | Poor      |
-| 0.00 - 0.29 | Not relevant     | Very Bad  |
+2. **Assignment**
+   - View the assignments submitted when logged in as a student.
 
-### What it does
-
-Measures the overall similarity between the course material and the generated content based on their meanings, not just word matching.
-
-### How it works
-
-- Both the course material and generated content are converted into vector embeddings using a pre-trained model like OpenAI’s text-embedding-ada-002.
-- The similarity is calculated using cosine similarity, which measures the angle between the two vectors.
-- A score closer to 1 indicates high relevance, while a score closer to 0 indicates low relevance.
-
-### Why it’s important
-
-Captures the conceptual closeness between the source material and the output, ensuring the generated content aligns semantically.
-
-## 2. Keyword Overlap
-
-Keyword overlap calculates the percentage of keywords in the course material that also appear in the generated content. A higher percentage indicates better alignment.
-
-| Overlap Range | Interpretation   | Quality   |
-|---------------|------------------|-----------|
-| 75% - 100%    | Highly relevant  | Excellent |
-| 50% - 74%     | Relevant         | Good      |
-| 30% - 49%     | Somewhat relevant| Average   |
-| 10% - 29%     | Weak relevance   | Poor      |
-| 0% - 9%       | Not relevant     | Very Bad  |
-
-### What it does
-
-Compares the keywords in the course material with those in the generated content to find overlapping terms.
-
-### How it works
-
-- Extracts keywords from both the course material and the generated content using Natural Language Processing (NLP) techniques like spaCy.
-- Calculates the percentage of overlapping keywords relative to the total number of keywords in the course material.
-- A higher percentage indicates better relevance, as it shows the generated content uses terms related to the source material.
-
-### Why it’s important
-
-Ensures the generated content covers key topics and terms from the original material, which is critical for accurate representation.
-
-## 3. LLM Feedback Score
-
-The LLM feedback score is based on the LLM’s evaluation of the relevance of the generated content to the course material. Scores range from 0 to 10.
-
-| Score Range | Interpretation   | Quality   |
-|-------------|------------------|-----------|
-| 9 - 10      | Highly relevant  | Excellent |
-| 7 - 8       | Relevant         | Good      |
-| 5 - 6       | Somewhat relevant| Average   |
-| 3 - 4       | Weak relevance   | Poor      |
-| 0 - 2       | Not relevant     | Very Bad  |
-
-### What it does
-
-Uses the same LLM to evaluate the relevance of its generated content against the course material.
-
-### How it works
-
-- A specially designed prompt is sent to the LLM, asking it to compare the course material with the generated content.
-- The LLM provides a numerical score (0-10) and a short explanation of how relevant the generated content is.
-- A higher score reflects better relevance based on the LLM’s internal understanding of the context.
-
-### Why it’s important
-
-Provides an additional layer of evaluation by leveraging the LLM’s reasoning ability to judge the quality of its own output.
-
-###Live Demo
-[Click here to view the live demo](https://comp-se-610-620-autumn-2024-software.onrender.com/)
+3. **Feedback**
+   - View the feedback submitted when logged in as a student.
