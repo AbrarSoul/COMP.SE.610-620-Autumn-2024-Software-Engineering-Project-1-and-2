@@ -33,7 +33,17 @@ else:
     st.stop()  # Prevent navigation to other pages without login
 
 # Display app pages if logged in
-st.title("Smart Teaching Assistant for RE")
+st.markdown("""
+    <style>
+    .big-title {
+        font-size: 3.5em; /* Adjust size as needed */
+        font-weight: bold;
+        color: #31396e; /* Optional: Adjust color */
+        text-align: left; /* Optional: Center align */
+    }
+    </style>
+    <div class="big-title">Smart Teaching Assistant for RE</div>
+""", unsafe_allow_html=True)
 
 # Sidebar navigation
 page = st.sidebar.radio("Go to", [

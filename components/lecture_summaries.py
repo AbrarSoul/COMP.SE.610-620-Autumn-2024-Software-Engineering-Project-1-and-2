@@ -15,7 +15,7 @@ def lecture_summaries():
     init_db()
 
     # Lecture Summaries Header
-    st.markdown('<div class="lecture-header">Lecture Materials</div>', unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #4CAF50;'>Lecture Materials</h1>", unsafe_allow_html=True)
 
     # Role-based display for upload section
     if has_role("teacher"):
@@ -34,7 +34,7 @@ def lecture_summaries():
             st.markdown('<div class="upload-success">Uploaded successfully!</div>', unsafe_allow_html=True)
 
     # Display uploaded lectures from the database
-    st.markdown('<div class="subheader">Uploaded Lecture Summaries</div>', unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Uploaded Lecture Summaries</h3>", unsafe_allow_html=True)
     lectures = get_lectures()
     if lectures:
         # Convert data to DataFrame for easy display

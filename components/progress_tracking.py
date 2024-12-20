@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 
 def progress_tracking():
-    st.header("Progress Tracking")
-    st.subheader("Progress Map")
+    st.markdown("<h1 style='color: #4CAF50;'>Progress Tracking</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #362f2f; font-weight: bold;'>Progress Map</h3>", unsafe_allow_html=True)
 
     # Sample progress data
     progress_data = {
