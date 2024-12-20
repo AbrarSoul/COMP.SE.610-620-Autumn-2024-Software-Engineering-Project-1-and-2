@@ -19,7 +19,7 @@ def lecture_summaries():
 
     # Role-based display for upload section
     if has_role("teacher"):
-        st.markdown('<div class="subheader">Upload Lecture</div>', unsafe_allow_html=True)
+        st.markdown('<div class="subheader">Upload Lectures</div>', unsafe_allow_html=True)
         uploaded_file = st.file_uploader("Upload Lecture PDF", type="pdf")
         if uploaded_file is not None:
             # Save file to the local directory
