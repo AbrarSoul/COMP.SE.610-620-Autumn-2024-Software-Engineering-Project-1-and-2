@@ -17,7 +17,7 @@ init_session_state()
 init_database()
 
 # Set page configuration
-st.set_page_config(page_title="AI-Powered Teaching Assistant", layout="wide")
+st.set_page_config(page_title="APUOPE-RE", layout="wide")
 
 # Sidebar Navigation and Authentication
 if st.session_state["logged_in"]:
